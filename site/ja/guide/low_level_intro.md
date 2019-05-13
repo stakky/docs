@@ -1,36 +1,36 @@
-# Introduction
+# 前書き
 
-This guide gets you started programming in the low-level TensorFlow APIs
-(TensorFlow Core), showing you how to:
+このガイドでは、低レベルのTensorFlow APIでプログラミングを始めます。
+（TensorFlow Core）、以下の方法を説明します。
 
-  * Manage your own TensorFlow program (a `tf.Graph`) and TensorFlow
-    runtime (a `tf.Session`), instead of relying on Estimators to manage them.
-  * Run TensorFlow operations, using a `tf.Session`.
-  * Use high level components ([datasets](#datasets), [layers](#layers), and
-    [feature_columns](#feature_columns)) in this low level environment.
-  * Build your own training loop, instead of using the one
-    [provided by Estimators](../guide/premade_estimators.md).
+  * あなた自身のTensorFlowプログラム（ `tf.Graph`）とTensorFlowを管理してください
+    それらを管理するためにEstimatorに頼るのではなく、ランタイム（ `tf.Session`）。
+  * `tf.Session`を使ってTensorFlowオペレーションを実行します。
+  * 高レベルのコンポーネント（[datasets]（＃datasets）、[layers]（＃layers）、および
+    この低レベル環境では[feature_columns]（＃feature_columns））。
+  * トレーニングループを使用するのではなく、独自のトレーニングループを構築する
+    [Estimators提供]（../ guide / premade_estimators.md）
 
-We recommend using the higher level APIs to build models when possible.
-Knowing TensorFlow Core is valuable for the following reasons:
+可能であれば、より高レベルのAPIを使用してモデルを構築することをお勧めします。
+TensorFlow Coreを知ることは、次のような理由で有益です。
 
-  * Experimentation and debugging are both more straight forward
-    when you can use low level TensorFlow operations directly.
-  * It gives you a mental model of how things work internally when
-    using the higher level APIs.
+  * 実験とデバッグはどちらも簡単です
+    低レベルのTensorFlow操作を直接使用できる場合
+  * それは物事が内部的にどのように機能するかの精神的モデルをあなたに与える
+    より高いレベルのAPIを使用する。
 
-## Setup
+## セットアップ
 
-Before using this guide, [install TensorFlow](../install).
+このガイドを使用する前に、[install TensorFlow]（../ install）を実行してください。
 
-To get the most out of this guide, you should know the following:
+このガイドを最大限に活用するには、次のことを知っておく必要があります。
 
-*   How to program in Python.
-*   At least a little bit about arrays.
-*   Ideally, something about machine learning.
+*   Pythonでプログラムする方法
+*   少なくとも配列について少し。
+*   理想的には、機械学習に関するものです。
 
-Feel free to launch `python` and follow along with this walkthrough.
-Run the following lines to set up your Python environment:
+気軽に `python`を起動し、このチュートリアルをフォローしてください。
+次の行を実行してPython環境を設定してください。
 
 ```python
 from __future__ import absolute_import
@@ -43,11 +43,11 @@ import tensorflow as tf
 
 ## Tensor Values
 
-The central unit of data in TensorFlow is the **tensor**. A tensor consists of a
-set of primitive values shaped into an array of any number of dimensions. A
-tensor's **rank** is its number of dimensions, while its **shape** is a tuple
-of integers specifying the array's length along each dimension. Here are some
-examples of tensor values:
+TensorFlowのデータの中心単位は**tensor**です。テンソルは、
+任意の次元数の配列に整形されたプリミティブ値のセット。 A
+tensorの**rank**はその次元数ですが、**shape**はタプルです
+各次元に沿った配列の長さを指定する整数のここにあるいくつかの
+テンソル値の例：
 
 ```python
 3. # a rank 0 tensor; a scalar with shape [],
@@ -56,7 +56,7 @@ examples of tensor values:
 [[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3]
 ```
 
-TensorFlow uses numpy arrays to represent tensor **values**.
+TensorFlowはテンソル値を表すのにテンキー配列を使用します。
 
 ## TensorFlow Core Walkthrough
 
