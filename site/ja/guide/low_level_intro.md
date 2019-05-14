@@ -58,33 +58,33 @@ tensorの**rank**はその次元数ですが、**shape**はタプルです
 
 TensorFlowはテンソル値を表すのにテンキー配列を使用します。
 
-## TensorFlow Core Walkthrough
+## TensorFlowコアのチュートリアル
 
-You might think of TensorFlow Core programs as consisting of two discrete
-sections:
+TensorFlow Coreプログラムは、2つのディスクリートからなると考えるかもしれません。
+セクション：
 
-1.  Building the computational graph (a `tf.Graph`).
-2.  Running the computational graph (using a `tf.Session`).
+1.  計算グラフの作成 (`tf.Graph`).
+2.  計算グラフの実行 (`tf.Session`を使用する).
 
 ### Graph
 
-A **computational graph** is a series of TensorFlow operations arranged into a
-graph. The graph is composed of two types of objects.
+**計算グラフ**は、次のように配列された一連のTensorFlow操作です。
+グラフ。グラフは2種類のオブジェクトで構成されています。
 
-  * `tf.Operation` (or "ops"): The nodes of the graph.
-    Operations describe calculations that consume and produce tensors.
-  * `tf.Tensor`: The edges in the graph. These represent the values
-    that will flow through the graph. Most TensorFlow functions return
-    `tf.Tensors`.
+  * `tf.Operation` (もしくは "ops"): グラフの節点。
+    操作はテンソルを消費し生成する計算を記述します。
+  * `tf.Tensor`: グラフ内の辺これらは値を表します
+    それはグラフを流れます。ほとんどのTensorFlow関数は戻ります
+    `tf.Tensors`。
 
-Important: `tf.Tensors` do not have values, they are just handles to elements
-in the computation graph.
+重要： `tf.Tensors`は値を持っていません、それらは単に要素へのハンドルです
+計算グラフで
 
-Let's build a simple computational graph. The most basic operation is a
-constant. The Python function that builds the operation takes a tensor value as
-input. The resulting operation takes no inputs. When run, it outputs the
-value that was passed to the constructor. We can create two floating point
-constants `a` and `b` as follows:
+簡単な計算グラフを作りましょう。最も基本的な操作は
+定数。操作を構築するPython関数は次のようにテンソル値を取ります。
+入力。結果の操作は入力を取りません。実行すると、
+コンストラクタに渡された値。 2つの浮動小数点を作成できます
+以下の定数 `a`と` b`：
 
 ```python
 a = tf.constant(3.0, dtype=tf.float32)
@@ -95,7 +95,7 @@ print(b)
 print(total)
 ```
 
-The print statements produce:
+printステートメントは次のものを生成します。
 
 ```
 Tensor("Const:0", shape=(), dtype=float32)
@@ -103,24 +103,24 @@ Tensor("Const_1:0", shape=(), dtype=float32)
 Tensor("add:0", shape=(), dtype=float32)
 ```
 
-Notice that printing the tensors does not output the values `3.0`, `4.0`, and
-`7.0` as you might expect. The above statements only build the computation
-graph. These `tf.Tensor` objects just represent the results of the operations
-that will be run.
+テンソルを表示しても値 `3.0`、` 4.0`、
+ご想像のとおり `7.0`。上記のステートメントは計算を構築するだけです
+グラフ。これらの `tf.Tensor`オブジェクトは単に操作の結果を表しています
+それが実行されます。
 
-Each operation in a graph is given a unique name. This name is independent of
-the names the objects are assigned to in Python. Tensors are named after the
-operation that produces them followed by an output index, as in
-`"add:0"` above.
+グラフ内の各操作には一意の名前が付けられています。この名前は独立しています
+オブジェクトがPythonで割り当てられている名前。テンソルの名前は
+次のように、それらに続いて出力インデックスを生成する操作
+上記の `" add：0 "`。
 
 ### TensorBoard
 
-TensorFlow provides a utility called TensorBoard. One of TensorBoard's many
-capabilities is visualizing a computation graph. You can easily do this with
-a few simple commands.
+TensorFlowはTensorBoardというユーティリティを提供します。 TensorBoardの多数のうちの1つ
+capabilitiesは計算グラフを視覚化しています。あなたは簡単にこれを行うことができます
+いくつかの簡単なコマンド。
 
-First you save the computation graph to a TensorBoard summary file as
-follows:
+まず、計算グラフをTensorBoard要約ファイルに次のように保存します。
+次のとおりです。
 
 ```
 writer = tf.summary.FileWriter('.')
@@ -128,66 +128,66 @@ writer.add_graph(tf.get_default_graph())
 writer.flush()
 ```
 
-This will produce an `event` file in the current directory with a name in the
-following format:
+これはカレントディレクトリに `event`ファイルを作成します。
+次の形式
 
 ```
 events.out.tfevents.{timestamp}.{hostname}
 ```
 
-Now, in a new terminal, launch TensorBoard with the following shell command:
+それでは、新しい端末で、次のシェルコマンドを使ってTensorBoardを起動します。
 
 ```bsh
 tensorboard --logdir .
 ```
 
-Then open TensorBoard's [graphs page](http://localhost:6006/#graphs) in your
-browser, and you should see a graph similar to the following:
+それからTensorBoardの[graph page]（http：// localhost：6006 /＃graph）を開いてください。
+ブラウザを起動すると、次のようなグラフが表示されます。
 
 ![TensorBoard screenshot](https://www.tensorflow.org/images/getting_started_add.png)
 
-For more about TensorBoard's graph visualization tools see [TensorBoard: Graph Visualization](../guide/graph_viz.md).
+TensorBoardのグラフ可視化ツールの詳細については、[TensorBoard：Graph Visualization]（../ guide / graph_viz.md）を参照してください。
 
 ### Session
 
-To evaluate tensors, instantiate a `tf.Session` object, informally known as a
-**session**. A session encapsulates the state of the TensorFlow runtime, and
-runs TensorFlow operations. If a `tf.Graph` is like a `.py` file, a `tf.Session`
-is like the `python` executable.
+テンソルを評価するには、 `tf.Session`オブジェクトをインスタンス化します。
+**セッション**。セッションはTensorFlowランタイムの状態をカプセル化します。
+TensorFlowオペレーションを実行します。 `tf.Graph`が` .py`ファイルのようなものであれば、 `tf.Session`
+`python`実行ファイルに似ています。
 
-The following code creates a `tf.Session` object and then invokes its `run`
-method to evaluate the `total` tensor we created above:
+次のコードは `tf.Session`オブジェクトを作成してからその` run`を呼び出します
+上で作成した `total`テンソルを評価するメソッド
 
 ```python
 sess = tf.Session()
 print(sess.run(total))
 ```
 
-When you request the output of a node with `Session.run` TensorFlow backtracks
-through the graph and runs all the nodes that provide input to the requested
-output node. So this prints the expected value of 7.0:
+`Session.run` TensorFlowバックトラックでノードの出力を要求したとき
+グラフを通して、要求されたノードに入力を提供するすべてのノードを実行します。
+出力ノードしたがって、これは期待値7.0を出力します。
 
 ```
 7.0
 ```
 
-You can pass multiple tensors to `tf.Session.run`. The `run` method
-transparently handles any combination of tuples or dictionaries, as in the
-following example:
+複数のテンソルを `tf.Session.run`に渡すことができます。 `run`メソッド
+次のように、タプルまたは辞書の任意の組み合わせを透過的に処理します。
+次の例
 
 ```python
 print(sess.run({'ab':(a, b), 'total':total}))
 ```
 
-which returns the results in a structure of the same layout:
+これは同じレイアウトの構造で結果を返します。
 
 <pre>
 {'total': 7.0, 'ab': (3.0, 4.0)}
 </pre>
 
-During a call to `tf.Session.run` any `tf.Tensor` only has a single value.
-For example, the following code calls `tf.random_uniform` to produce a
-`tf.Tensor` that generates a random 3-element vector (with values in `[0,1)`):
+`tf.Session.run`の呼び出し中は、` tf.Tensor`は単一の値しか持ちません。
+例えば、次のコードは `tf.random_uniform`を呼び出して
+ランダムな3要素ベクトル（ `[0,1）`の値を持つ）を生成する `tf.Tensor`：
 
 ```python
 vec = tf.random_uniform(shape=(3,))
@@ -198,9 +198,9 @@ print(sess.run(vec))
 print(sess.run((out1, out2)))
 ```
 
-The result shows a different random value on each call to `run`, but
-a consistent value during a single `run` (`out1` and `out2` receive the same
-random input):
+結果は `run`の呼び出しごとに異なる乱数を示していますが、
+単一の `run`の間の一貫した値（` out1`と `out2`は同じものを受け取ります
+ランダム入力）：
 
 ```
 [ 0.52917576  0.64076328  0.68353939]
@@ -211,18 +211,18 @@ random input):
 )
 ```
 
-Some TensorFlow functions return `tf.Operations` instead of `tf.Tensors`.
-The result of calling `run` on an Operation is `None`. You run an operation
-to cause a side-effect, not to retrieve a value. Examples of this include the
-[initialization](#Initializing Layers), and [training](#Training) ops
-demonstrated later.
+いくつかのTensorFlow関数は、 `tf.Tensors`の代わりに` tf.Operations`を返します。
+Operationで `run`を呼び出した結果は` None`です。操作を実行した
+値を取得するのではなく、副作用を引き起こすため。この例としては、
+[初期化]（＃初期化レイヤ）、および[トレーニング]（＃トレーニング）の操作
+後で実証した。
 
 ### Feeding
 
-As it stands, this graph is not especially interesting because it always
-produces a constant result. A graph can be parameterized to accept external
-inputs, known as **placeholders**. A **placeholder** is a promise to provide a
-value later, like a function argument.
+それが立っているように、このグラフは常にそれがあるので特に面白くない
+一定の結果が得られます。グラフは外部を受け入れるようにパラメータ化することができます
+**プレースホルダー**として知られる入力。 **プレースホルダー**は、を提供するという約束です。
+関数の引数のように、あとで値
 
 ```python
 x = tf.placeholder(tf.float32)
@@ -230,40 +230,40 @@ y = tf.placeholder(tf.float32)
 z = x + y
 ```
 
-The preceding three lines are a bit like a function in which we
-define two input parameters (`x` and `y`) and then an operation on them. We can
-evaluate this graph with multiple inputs by using the `feed_dict` argument of
-the `tf.Session.run` method to feed concrete values to the placeholders:
+上記の3行は、次のような関数に少し似ています。
+2つの入力パラメータ（ `x`と` y`）を定義してからそれらに対する操作を定義します。私たちはできる
+の `feed_dict`引数を使ってこのグラフを複数の入力で評価する
+具体的な値をプレースホルダーに渡すための `tf.Session.run`メソッド
 
 ```python
 print(sess.run(z, feed_dict={x: 3, y: 4.5}))
 print(sess.run(z, feed_dict={x: [1, 3], y: [2, 4]}))
 ```
 
-This results in the following output:
+これにより、次のような出力が得られます。
 
 ```
 7.5
 [ 3.  7.]
 ```
 
-Also note that the `feed_dict` argument can be used to overwrite any tensor in
-the graph. The only difference between placeholders and other `tf.Tensors` is
-that placeholders throw an error if no value is fed to them.
+また、 `feed_dict`引数を使ってテンソルを上書きすることができます。
+グラフプレースホルダと他の `tf.Tensors`の唯一の違いは
+値が与えられない場合、そのプレースホルダはエラーをスローします。
 
 ## Datasets
 
-Placeholders work for simple experiments, but `tf.data` are the
-preferred method of streaming data into a model.
+プレースホルダーは簡単な実験のために働きますが、 `tf.data`は
+データをモデルにストリーミングするための好ましい方法。
 
-To get a runnable `tf.Tensor` from a Dataset you must first convert it to a
-`tf.data.Iterator`, and then call the Iterator's
-`tf.data.Iterator.get_next` method.
+データセットから実行可能な `tf.Tensor`を取得するには、まずそれをに変換しなければなりません。
+`tf.data.Iterator`を呼び出してから、Iteratorを呼び出します。
+`tf.data.Iterator.get_next`メソッド
 
-The simplest way to create an Iterator is with the
-`tf.data.Dataset.make_one_shot_iterator` method.
-For example, in the following code the `next_item` tensor will return a row from
-the `my_data` array on each `run` call:
+イテレータを作成する最も簡単な方法は、
+`tf.data.Dataset.make_one_shot_iterator`メソッド
+例えば、次のコードでは `next_item`テンソルはから行を返します。
+`run`を呼び出すたびに` my_data`配列
 
 ``` python
 my_data = [
@@ -276,9 +276,9 @@ slices = tf.data.Dataset.from_tensor_slices(my_data)
 next_item = slices.make_one_shot_iterator().get_next()
 ```
 
-Reaching the end of the data stream causes `Dataset` to throw an
-`tf.errors.OutOfRangeError`. For example, the following code
-reads the `next_item` until there is no more data to read:
+データストリームの終わりに到達すると `Dataset`は
+`tf.errors.OutOfRangeError`。例えば、以下のコード
+読み込むデータがなくなるまで `next_item`を読み込みます。
 
 ``` python
 while True:
@@ -288,8 +288,8 @@ while True:
     break
 ```
 
-If the `Dataset` depends on stateful operations you may need to
-initialize the iterator before using it, as shown below:
+`Dataset`がステートフルな操作に依存している場合はあなたがする必要があるかもしれません
+次に示すように、使用する前にイテレータを初期化します。
 
 ``` python
 r = tf.random_normal([10,3])
@@ -305,27 +305,27 @@ while True:
     break
 ```
 
-For more details on Datasets and Iterators see: [Importing Data](../guide/datasets.md).
+データセットとイテレータの詳細については、[データのインポート]（../ guide / datasets.md）を参照してください。
 
 ## Layers
 
-A trainable model must modify the values in the graph to get new outputs with
-the same input.  `tf.layers` are the preferred way to add trainable
-parameters to a graph.
+トレーニング可能なモデルは、グラフ内の値を修正して、次のようにして新しい出力を取得します
+同じ入力`tf.layers`はトレーニング可能なものを追加するのに好ましい方法です
+グラフへのパラメータ。
 
-Layers package together both the variables and the operations that act
-on them. For example a
-[densely-connected layer](https://developers.google.com/machine-learning/glossary/#fully_connected_layer)
-performs a weighted sum across all inputs
-for each output and applies an optional
-[activation function](https://developers.google.com/machine-learning/glossary/#activation_function).
-The connection weights and biases are managed by the layer object.
+レイヤーは、動作する変数と操作の両方をまとめたものです。
+それらの上に。例えば、
+[密接に接続された層]（https://developers.google.com/machine-learning/glossary/#fully_connected_layer）
+すべての入力にわたって加重合計を実行します
+各出力に対して、オプションを適用
+[アクティベーション機能]（https://developers.google.com/machine-learning/glossary/#activation_function）
+接続ウェイトとバイアスは、レイヤオブジェクトによって管理されます。
 
 ### Creating Layers
 
-The following code creates a `tf.layers.Dense` layer that takes a
-batch of input vectors, and produces a single output value for each. To apply a
-layer to an input, call the layer as if it were a function. For example:
+次のコードは、 `tf.layers.Dense`レイヤーを作成します。
+入力ベクトルのバッチを作成し、それぞれに対して単一の出力値を生成します。を適用する
+入力にレイヤを追加するには、レイヤを関数のように呼び出します。例えば：
 
 ```python
 x = tf.placeholder(tf.float32, shape=[None, 3])
@@ -333,31 +333,31 @@ linear_model = tf.layers.Dense(units=1)
 y = linear_model(x)
 ```
 
-The layer inspects its input to determine sizes for its internal variables. So
-here we must set the shape of the `x` placeholder so that the layer can
-build a weight matrix of the correct size.
+レイヤは入力を調べて、内部変数のサイズを決定します。そう
+ここで、レイヤができるように `x`プレースホルダの形状を設定しなければなりません。
+正しいサイズの重み行列を作成します。
 
-Now that we have defined the calculation of the output, `y`, there is one more
-detail we need to take care of before we run the calculation.
+出力の計算 `y`を定義したので、もう1つあります。
+詳細計算を実行する前に注意が必要です。
 
 ### Initializing Layers
 
-The layer contains variables that must be **initialized** before they can be
-used. While it is possible to initialize variables individually, you can easily
-initialize all the variables in a TensorFlow graph as follows:
+レイヤーには、初期化する前に**初期化**する必要がある変数が含まれています。
+中古。変数を個別に初期化することは可能ですが、簡単にできます。
+TensorFlowグラフのすべての変数を次のように初期化します。
 
 ```python
 init = tf.global_variables_initializer()
 sess.run(init)
 ```
 
-Important: Calling `tf.global_variables_initializer` only
-creates and returns a handle to a TensorFlow operation. That op
-will initialize all the global variables when we run it with `tf.Session.run`.
+重要： `tf.global_variables_initializer`だけを呼び出す
+TensorFlowオペレーションへのハンドルを作成して返します。あのop
+`tf.Session.run`で実行すると、すべてのグローバル変数を初期化します。
 
-Also note that this `global_variables_initializer` only initializes variables
-that existed in the graph when the  initializer was created. So the initializer
-should be one of the last things added during graph construction.
+また、この `global_variables_initializer`は変数を初期化するだけです
+これは、初期化子が作成されたときにグラフに存在していました。イニシャライザ
+グラフ作成中に追加される最後のものの1つであるべきです。
 
 ### Executing Layers
 
