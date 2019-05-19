@@ -361,14 +361,14 @@ TensorFlowオペレーションへのハンドルを作成して返します。�
 
 ### Executing Layers
 
-Now that the layer is initialized, we can evaluate the `linear_model`'s output
-tensor as we would any other tensor. For example, the following code:
+レイヤが初期化されたので、 `linear_model`の出力を評価できます。
+他のテンソルと同じようにテンソル。たとえば、次のようなコードです。
 
 ```python
 print(sess.run(y, {x: [[1, 2, 3],[4, 5, 6]]}))
 ```
 
-will generate a two-element output vector such as the following:
+次のような2要素の出力ベクトルを生成します。
 
 ```
 [[-3.41378999]
@@ -377,10 +377,10 @@ will generate a two-element output vector such as the following:
 
 ### Layer Function shortcuts
 
-For each layer class (like `tf.layers.Dense`) TensorFlow also supplies a
-shortcut function (like `tf.layers.dense`). The only difference is that the
-shortcut function versions create and run the layer in a single call. For
-example, the following code is equivalent to the earlier version:
+（ `tf.layers.Dense`のような）各層クラスに対して、TensorFlowはまた、
+ショートカット関数（ `tf.layers.dense`のようなもの）。唯一の違いは、
+ショートカット機能バージョンは、1回の呼び出しでレイヤを作成して実行します。にとって
+たとえば、次のコードは以前のバージョンと同じです。
 
 ```python
 x = tf.placeholder(tf.float32, shape=[None, 3])
@@ -392,17 +392,17 @@ sess.run(init)
 print(sess.run(y, {x: [[1, 2, 3], [4, 5, 6]]}))
 ```
 
-While convenient, this approach allows no access to the `tf.layers.Layer`
-object. This makes introspection and debugging more difficult,
-and layer reuse impossible.
+便利ですが、この方法では `tf.layers.Layer`にアクセスできません
+オブジェクトこれは、イントロスペクションとデバッグをより困難にします。
+そしてレイヤーの再利用は不可能です。
 
 ## Feature columns
 
-The easiest way to experiment with feature columns is using the
-`tf.feature_column.input_layer` function. This function only accepts
-[dense columns](../guide/feature_columns.md) as inputs, so to view the result
-of a categorical column you must wrap it in an
-`tf.feature_column.indicator_column`. For example:
+フィーチャ列を試す最も簡単な方法は、
+`tf.feature_column.input_layer`関数この関数は
+[密な列]（../ guide / feature_columns.md）を入力として、結果を表示する
+カテゴリカル列の場合は、
+`tf.feature_column.indicator_column`。例えば：
 
 ``` python
 features = {
@@ -421,12 +421,12 @@ columns = [
 inputs = tf.feature_column.input_layer(features, columns)
 ```
 
-Running the `inputs` tensor will parse the `features` into a batch of vectors.
+`input`テンソルを実行することは` features`をベクトルのバッチに分解します。
 
-Feature columns can have internal state, like layers, so they often need to be
-initialized. Categorical columns use `tf.contrib.lookup`
-internally and these require a separate initialization op,
-`tf.tables_initializer`.
+フィーチャ列はレイヤのように内部状態を持つことができるので、それらはしばしば存在する必要があります。
+初期化されました。カテゴリカルカラムは `tf.contrib.lookup`を使います
+内部的にこれらは別々の初期化操作を必要とします、
+`tf.tables_initializer`。
 
 ``` python
 var_init = tf.global_variables_initializer()
@@ -435,15 +435,15 @@ sess = tf.Session()
 sess.run((var_init, table_init))
 ```
 
-Once the internal state has been initialized you can run `inputs` like any
-other `tf.Tensor`:
+内部状態が初期化されたら、他のように `input`を実行できます。
+他の `tf.Tensor`：
 
 ```python
 print(sess.run(inputs))
 ```
 
-This shows how the feature columns have packed the input vectors, with the
-one-hot "department" as the first two indices and "sales" as the third.
+これは、フィーチャ列がどのように入力ベクトルをパックしたかを示します。
+最初の2つのインデックスとして1ホット "部門"と3番目のインデックスとして "売上高"。
 
 <pre>
 [[  1.   0.   5.]
@@ -454,13 +454,13 @@ one-hot "department" as the first two indices and "sales" as the third.
 
 ## Training
 
-Now that you're familiar with the basics of core TensorFlow, let's train a
-small regression model manually.
+これで、TensorFlowコアの基本についての知識が深まりました。
+手動での小さな回帰モデル
 
 ### Define the data
 
-First let's define some inputs, `x`, and the expected output for each input,
-`y_true`:
+最初にいくつかの入力 `x`と各入力に期待される出力を定義しましょう。
+`y_true`：
 
 ```python
 x = tf.constant([[1], [2], [3], [4]], dtype=tf.float32)
@@ -469,7 +469,7 @@ y_true = tf.constant([[0], [-1], [-2], [-3]], dtype=tf.float32)
 
 ### Define the model
 
-Next, build a simple linear model, with 1 output:
+次に、1出力の単純な線形モデルを作成します。
 
 ``` python
 linear_model = tf.layers.Dense(units=1)
@@ -477,7 +477,7 @@ linear_model = tf.layers.Dense(units=1)
 y_pred = linear_model(x)
 ```
 
-You can evaluate the predictions as follows:
+次のように予測を評価できます。
 
 ``` python
 sess = tf.Session()
@@ -487,8 +487,8 @@ sess.run(init)
 print(sess.run(y_pred))
 ```
 
-The model hasn't yet been trained, so the four "predicted" values aren't very
-good. Here's what we got; your own output will almost certainly differ:
+モデルはまだ訓練されていないので、4つの「予測」値はあまりよくありません
+良い。これが私たちが得たものです。あなた自身の出力はほぼ確実に異なります。
 
 <pre>
 [[ 0.02631879]
@@ -499,19 +499,19 @@ good. Here's what we got; your own output will almost certainly differ:
 
 ### Loss
 
-To optimize a model, you first need to define the loss. We'll use the mean
-square error, a standard loss for regression problems.
+モデルを最適化するには、まず損失を定義する必要があります。平均値を使います
+二乗誤差、回帰問題に対する標準的な損失。
 
-While you could do this manually with lower level math operations,
-the `tf.losses` module provides a set of common loss functions. You can use it
-to calculate the mean square error as follows:
+低レベルの数学演算でこれを手動で行うことができますが、
+`tf.losses`モジュールは一般的な損失関数のセットを提供します。あなたはそれを使うことができます
+次のように平均二乗誤差を計算します。
 
 ``` python
 loss = tf.losses.mean_squared_error(labels=y_true, predictions=y_pred)
 
 print(sess.run(loss))
 ```
-This will produce a loss value, something like:
+これは損失値を生み出します。
 
 <pre>
 2.23962
