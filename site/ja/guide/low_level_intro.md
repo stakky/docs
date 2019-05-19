@@ -519,24 +519,24 @@ print(sess.run(loss))
 
 ### Training
 
-TensorFlow provides
-[**optimizers**](https://developers.google.com/machine-learning/glossary/#optimizer)
-implementing standard optimization algorithms. These are implemented as
-sub-classes of `tf.train.Optimizer`. They incrementally change each
-variable in order to minimize the loss. The simplest optimization algorithm is
-[**gradient descent**](https://developers.google.com/machine-learning/glossary/#gradient_descent),
-implemented by `tf.train.GradientDescentOptimizer`. It modifies each
-variable according to the magnitude of the derivative of loss with respect to
-that variable. For example:
+TensorFlowは提供します
+[**オプティマイザー**]（https://developers.google.com/machine-learning/glossary/#optimizer）
+標準の最適化アルゴリズムを実装する。これらは以下のように実装されています。
+`tf.train.Optimizer`のサブクラス。それらはそれぞれ徐々に変化する
+損失を最小限に抑えるために可変です。最も簡単な最適化アルゴリズムは、
+[**グラデーション降下**]（https://developers.google.com/machine-learning/glossary/#gradient_descent）、
+`tf.train.GradientDescentOptimizer`によって実装されています。それはそれぞれ修正します
+に関する損失の導関数の大きさに応じて可変
+その変数例えば：
 
 ```python
 optimizer = tf.train.GradientDescentOptimizer(0.01)
 train = optimizer.minimize(loss)
 ```
 
-This code builds all the graph components necessary for the optimization, and
-returns a training operation. When run, the training op will update variables
-in the graph. You might run it as follows:
+このコードは、最適化に必要なすべてのグラフコンポーネントを構築します。
+トレーニング操作を返します。実行されると、トレーニングopは変数を更新します
+グラフ内。あなたはそれを次のように実行するかもしれません：
 
 ```python
 for i in range(100):
@@ -544,9 +544,9 @@ for i in range(100):
   print(loss_value)
 ```
 
-Since `train` is an op, not a tensor, it doesn't return a value when run.
-To see the progression of the loss during training, we run the loss tensor at
-the same time, producing output like the following:
+`train`はテンソルではなく演算子なので、実行時に値を返しません。
+訓練中の損失の進行を見るために、損失テンソルをつぎのように実行します。
+同時に、次のような出力が生成されます。
 
 <pre>
 1.35659
@@ -589,15 +589,15 @@ print(sess.run(y_pred))
 
 ## Next steps
 
-To learn more about building models with TensorFlow consider the following:
+TensorFlowでモデルを構築することについてもっと学ぶために、以下を考えてください：
 
-* [Custom Estimators](../guide/custom_estimators.md), to learn how to build
-  customized models with TensorFlow. Your knowledge of TensorFlow Core will
-  help you understand and debug your own models.
+* [カスタム見積もりツール]（../ guide / custom_estimators.md）、ビルド方法を学ぶ
+  TensorFlowによるカスタマイズモデルTensorFlow Coreに関するあなたの知識は
+  自分のモデルを理解しデバッグするのに役立ちます。
 
-If you want to learn more about the inner workings of TensorFlow consider the
-following documents, which go into more depth on many of the topics discussed
-here:
+TensorFlowの内部動作についてもっと知りたい場合は、
+以下の文書は、議論されたトピックの多くについてさらに深く掘り下げます。
+ここに：
 
 * [Graphs and Sessions](../guide/graphs.md)
 * [Tensors](../guide/tensors.md)
