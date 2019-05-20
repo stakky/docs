@@ -1,23 +1,18 @@
-# 前書き
+# イントロダクション
 
-このガイドでは、低レベルのTensorFlow APIでプログラミングを始めます。
-（TensorFlow Core）、以下の方法を説明します。
+このガイドでは、低レベルのTensorFlow API(TensorFlow Core)でプログラミングを始めます。
+以下の方法を説明します。
 
-  * あなた自身のTensorFlowプログラム（ `tf.Graph`）とTensorFlowを管理してください
-    それらを管理するためにEstimatorに頼るのではなく、ランタイム（ `tf.Session`）。
-  * `tf.Session`を使ってTensorFlowオペレーションを実行します。
-  * 高レベルのコンポーネント（[datasets]（＃datasets）、[layers]（＃layers）、および
-    この低レベル環境では[feature_columns]（＃feature_columns））。
-  * トレーニングループを使用するのではなく、独自のトレーニングループを構築する
-    [Estimators提供]（../ guide / premade_estimators.md）
+  * Estimatorを使用せず、TensorFlowプログラム（`tf.Graph`）とTensorFlowランタイム（`tf.Session`）を自分自身で管理する方法。
+  * `tf.Session`を使ってTensorFlowオペレーションを実行する方法。
+  * 低レベルの環境で高レベルのコンポーネント([datasets](＃datasets), [layers](＃layers), および[feature_columns](＃feature_columns))を使用する方法。
+  * [Estimatorが提供する学習ループ](../guide/premade_estimators.md)を使用するのではなく、独自の学習ループを構築する方法。
 
 可能であれば、より高レベルのAPIを使用してモデルを構築することをお勧めします。
 TensorFlow Coreを知ることは、次のような理由で有益です。
 
-  * 実験とデバッグはどちらも簡単です
-    低レベルのTensorFlow操作を直接使用できる場合
-  * それは物事が内部的にどのように機能するかの精神的モデルをあなたに与える
-    より高いレベルのAPIを使用する。
+  * 低レベルのTensorFlowオペレーションを直接使用すると、実験とデバッグがより容易になります。
+  * TensorFlowの内部がどのように機能するかのメンタルモデルを得ることができ、より高レベルのAPIを使用する際に役に立ちます。
 
 ## セットアップ
 
