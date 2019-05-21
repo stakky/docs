@@ -16,16 +16,19 @@ TensorFlow Coreを知ることは、次のような理由で有益です。
 
 ## セットアップ
 
-このガイドを使用する前に、[install TensorFlow]（../ install）を実行してください。
+このガイドを使用する前に、[TensorFlowをinstallしてください。](../install)
 
 このガイドを最大限に活用するには、次のことを知っておく必要があります。
 
-*   Pythonでプログラムする方法
-*   少なくとも配列について少し。
-*   理想的には、機械学習に関するものです。
+* Pythonでのプログラム方法
+* 少なくとも配列についての知識
+* 理想的には、機械学習の知識
 
-気軽に `python`を起動し、このチュートリアルをフォローしてください。
-次の行を実行してPython環境を設定してください。
+```
+[訳しにくい]
+気軽に `python`を起動し、この解説の手順を追ってみてください。
+```
+Python環境をセットアップするには、以下のコードを実行してください。
 
 ```python
 from __future__ import absolute_import
@@ -36,13 +39,11 @@ import numpy as np
 import tensorflow as tf
 ```
 
-## Tensor Values
+## tensorの値
 
-TensorFlowのデータの中心単位は**tensor**です。テンソルは、
-任意の次元数の配列に整形されたプリミティブ値のセット。 A
-tensorの**rank**はその次元数ですが、**shape**はタプルです
-各次元に沿った配列の長さを指定する整数のここにあるいくつかの
-テンソル値の例：
+TensorFlowのデータの中心単位は**tensor**です。tensorは、不可分な一連の値のセットで構成され、
+任意の次元数の配列に整形されたものです。tensorの**rank**はその次元数を表しますが、**shape**は整数のタプルであり、その配列の各次元の大きさを表しています。
+tensorの値の例：
 
 ```python
 3. # a rank 0 tensor; a scalar with shape [],
@@ -51,7 +52,7 @@ tensorの**rank**はその次元数ですが、**shape**はタプルです
 [[[1., 2., 3.]], [[7., 8., 9.]]] # a rank 3 tensor with shape [2, 1, 3]
 ```
 
-TensorFlowはテンソル値を表すのにテンキー配列を使用します。
+TensorFlowはtensorの値を表すのにnumpyのarrayを使用します。
 
 ## TensorFlowコアのチュートリアル
 
